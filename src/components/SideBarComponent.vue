@@ -1,29 +1,31 @@
 <template>
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
-    <div class="logo">
+    <div class="logoA" v-if="is_expanded">
       <img :src="logoURL" alt="Vue" />
     </div>
-
-    <div class="menu-toggle-wrap">
-      <button class="menu-toggle" @click="ToggleMenu">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
+    <div class="logoB" v-else>
+      <img :src="logoURL" alt="Vue" />
     </div>
 
     <h3>Menu</h3>
     <div class="menu">
       <router-link to="/" class="button">
         <span class="fas fa-home"></span>
-        <span class="text"> Home</span>
+        <span class="text  mx-2"> Home</span>
       </router-link>
-      <router-link to="/register" class="button">
+      <router-link to="/cadastros" class="button">
         <span class="fas fa-columns"></span>
-        <span class="text"> Registrar</span>
+        <span class="text mx-2">Cadastros</span>
       </router-link>
     </div>
     <div class="flex"></div>
 
-    <i class="fa-solid fa-user"></i>
+    <div class="menu-toggle-wrap">
+      <button class="menu-toggle" @click="ToggleMenu">
+        <i class="fa-solid fa-forward"></i>
+      </button>
+    </div>
+
   </aside>
 </template>
 
@@ -47,7 +49,7 @@ aside {
   background-color: var(--dark);
   color: var(--light);
 
-  width: calc(2rem + 32px);
+  width: calc(2rem + 28px);
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
@@ -58,11 +60,23 @@ aside {
     flex: 1 1 0%;
   }
 
-  .logo {
-    margin-bottom: 1rem;
+  .logoA {
+    margin-bottom: 5rem;
+    margin-left: 4rem;
 
     img {
-      width: 2rem;
+      width: 8rem;
+
+    }
+  }
+  .logoB {
+    margin-bottom: 10.5rem;
+    margin-left: 0rem;
+    
+
+    img {
+      width: 2.5rem;
+
     }
   }
 
@@ -77,7 +91,7 @@ aside {
 
     .menu-toggle {
       transition: 0.2s ease-in-out;
-      color: var(--light)
+      color: var(--warning)
     }
   }
 
@@ -113,13 +127,13 @@ aside {
         background-color: var(--dark-alt);
 
         .material-icons, .text {
-          color: var(--primary);
+          color: var(--warning);
         }
       }
 
       &.router-link-exact-active {
         background-color: var(--dark-alt);
-        border-right: 5px solid var(--primary);
+        border-right: 5px solid var(--light);
       }
     }
   }
@@ -138,7 +152,7 @@ aside {
     width: var(--sidebar-width);
 
     .menu-toggle-wrap {
-      top: -3rem;
+      top: 0;
 
       .menu-toggle {
         transform: rotate(-180deg);
@@ -154,8 +168,8 @@ aside {
     }
   }
 
-  @media (max-width: 1024px) {
-    position: absolute;
+  @media (max-width: 1013px) {
+    position: fixed;
     z-index: 99;
   }
 }

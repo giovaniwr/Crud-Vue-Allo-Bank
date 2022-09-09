@@ -1,94 +1,75 @@
 <template>
-  <b-form class="mt-3">
-    <b-row>
-      <b-row>
-        <h4 class="text-secondary">Contact Details</h4>
+  <b-form class="mt-5">
+    <h4 class="text-center">Atualize seu contato</h4>
+    <b-row class="justify-content-center">
+    
+        <b-col cols="8">
+          <p>Nome:</p>
+            <b-form-input
+                id="first-name"
+                type="text"
+                required
+                placeholder="First Name"
+                v-model="customer.nome"
+            ></b-form-input>
+        </b-col>
       </b-row>
-      <b-col cols="6">
-        <b-form-group id="first-name" label="First Name" label-for="first-name">
-          <b-form-input
-              id="first-name"
-              type="text"
-              placeholder="First Name"
-              v-model="customer.contact_firstname"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="6">
-        <b-form-group id="last-name" label="Last Name" label-for="last-name">
-          <b-form-input
-              id="last-name"
-              type="text"
-              placeholder="Last Name"
-              v-model="customer.contact_lastname"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row class="mt-3">
-      <b-col cols="6">
-        <b-form-group id="email" label="E-Mail" label-for="email">
-          <b-form-input
-              id="email"
-              type="email"
-              placeholder="example@crm.com"
-              v-model="customer.contact_email"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row class="mt-5">
-      <h4 class="text-secondary">Company Details</h4>
-    </b-row>
-    <b-row>
-      <b-col cols="4">
-        <b-form-group
-            id="company_name"
-            label="Company Name"
-            label-for="company_name"
-        >
-          <b-form-input
-              id="company_name"
-              type="text"
-              placeholder="XYZ Industries"
-              v-model="customer.company_name"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="4">
-        <b-form-group
-            id="acquired_on"
-            label="Acquired On"
-            label-for="acquired_on"
-        >
-          <b-form-input
-              id="acquired_on"
-              type="date"
-              v-model="customer.acquired_on"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
-    <b-row class="mt-2">
-      <b-form-checkbox
-          id="customer_status"
-          v-model="customer.customer_status"
-          name="customer-status"
-          value="active"
-          unchecked-value="inactive"
-      >
-        Customer is active
-      </b-form-checkbox>
-    </b-row>
-    <b-row class="mt-4">
-      <b-col cols="3">
-        <b-button variant="primary" class="px-5" @click="updateCustomer"
-        >Update Customer</b-button
-        >
+      <b-row class="justify-content-center">
+        <b-col cols="8">
+          <p>CPF:</p>
+            <b-form-input
+                id="cpf"
+                required
+                v-mask="['###.###.###-##', '##.###.###/####-##']"
+                placeholder="000.000.000-00"
+                v-model="customer.cpf"
+            ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center mt-1">
+        <b-col cols="8">
+          <p>Telefone:</p>
+            <b-form-input
+                id="telefone"
+                required
+                v-mask="['(##) ####-####', '(##) #####-####']"
+                placeholder="(99)9999-9999"
+                v-model="customer.telefone"
+            ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col cols="8">
+          <p>Nome:</p>
+            <b-form-input
+                id="email"
+                type="email"
+                required
+                placeholder="example@crm.com"
+                v-model="customer.email"
+            ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col cols="8">
+          <b-form-checkbox
+                id="customer_status"
+                v-model="customer.lgpd"
+                name="customer-status"
+                value="active"
+                unchecked-value="inactive"
+            >
+            Você concorda com nossos termos e politica de privacidade?
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    <b-row class="mt-4 ">
+      <b-col cols="5">
       </b-col>
       <b-col>
+         <b-button variant="primary" class="px-5 mx-2" @click="updateCustomer"
+        >Salvar</b-button
+        >
         <b-button variant="warning" @click="triggerClose">Close</b-button>
       </b-col>
     </b-row>

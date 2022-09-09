@@ -1,15 +1,13 @@
 <template>
-  <div class="app">
-    <!-- Sidebar -->
+  <div class="app imagem">
     <SideBarComponent />
-    <!-- Content -->
     <router-view />
   </div>
 </template>
 
 <script setup>
 import SideBarComponent from '@/components/SideBarComponent.vue'
-// import DataTableComponent from "@/components/DataTableComponent";
+
 </script>
 
 <style lang="scss">
@@ -48,4 +46,14 @@ button {
     }
   }
 }
+ .imagem {
+   background-image: url('../public/banner-home.jpg');
+   background-position: 30% 45%;
+   background-color: black;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+   -o-background-size: cover;
+   z-index: 3;
+ }
 </style>

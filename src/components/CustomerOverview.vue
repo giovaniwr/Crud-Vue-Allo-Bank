@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <b-row class="text-center">
       <b-col>
@@ -73,4 +73,4 @@ export default {
   background-color: #e9f1fe;
   color: #074297;
 }
-</style>
+</style> -->

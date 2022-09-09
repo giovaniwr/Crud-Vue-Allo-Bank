@@ -1,24 +1,11 @@
 <template>
-  <main id="Home-page">
-    <div class="container name">
-      <h3>Plataforma Cadastro Clientes</h3>
+    <div class="container name imagem">
+      <CreateCustomerModal/>
     </div>
-    <div class="container">
-
-      <DataTableComponent/>
-    </div>
-  </main>
-
 </template>
 <script>
-import DataTableComponent from "@/components/DataTableComponent";
-
+import CreateCustomerModal from "@/components/CreateCustomerForm";
 export default {
-  components: {DataTableComponent}
+  components: {CreateCustomerModal}
 }
 </script>
-<style scoped>
-.name {
-  text-align: center;
-}
-</style>

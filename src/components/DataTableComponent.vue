@@ -1,24 +1,9 @@
 <template>
-  <b-container>
+  <b-container class="card">
     <b-row>
-      <b-alert v-model="showSuccessAlert" variant="success" dismissible>
+      <b-alert v-model="showSuccessAlert" variant="success" class="alert" dismissible>
         {{ alertMessage }}
       </b-alert>
-    </b-row>
-
-    <customer-overview
-        :totalCustomers="numberOfCustomers"
-        :activeCustomers="activeCustomers"
-        @totalCustomersIsActive="setFilterTotalIsActive"
-        @activeCustomerIsActive="setFilterActiveIsActive"
-    ></customer-overview>
-
-
-    <b-row align-h="between">
-      <b-col cols="6">
-        <h3>{{ tableHeader }}</h3>
-      </b-col>
-
     </b-row>
 
     <b-table
@@ -56,7 +41,7 @@
             <b-icon-trash-fill
                 class="action-item"
                 variant="danger"
-                @click="showDeleteModal(data.item.id)"
+                @click="deleteCadastro(data.item.id)"
             ></b-icon-trash-fill>
           </b-col>
         </b-row>
@@ -77,7 +62,6 @@
         ref="edit-customer-modal"
         size="xl"
         hide-footer
-        title="Edit Customer"
     >
       <edit-customer-form
           @closeEditModal="closeEditModal"
@@ -93,66 +77,51 @@
 <script>
 import axios from "axios";
 import EditCustomerForm from "@/components/EditCustomerForm.vue";
-import CustomerOverview from "@/components/CustomerOverview.vue";
 
 export default {
   components: {
     EditCustomerForm,
-    CustomerOverview,
+
   },
   data() {
     return {
-      perPage: 3,
-      currentPage: 3,
+      perPage: 7,
+      currentPage: 7,
       fields: [
         {
           key: "id",
-          label: "#",
+          label: "",
         },
         {
-          key: "contact_name",
+          key: "nome",
           label: "Nome Completo",
           sortable: false,
         },
         {
-          key: "contact_email",
+          key: "email",
           label: "Email",
           sortable: false,
         },
         {
-          key: "contact_telefone",
+          key: "telefone",
           label: "Telefone",
           sortable: false,
         },
         {
-          key: "contact_telefone",
-          label: "Telefone",
-          sortable: false,
-        },
-        {
-          key: "contact_cpf",
+          key: "cpf",
           label: "CPF",
           sortable: false,
         },
         {
-          key: "customer_status",
-          label: "Status Cliente",
-          sortable: false,
-        },
-        {
-          key: "acquired_on",
-          label: "Data",
+          key: "lgpd",
+          label: "Aceite LGPD",
           sortable: false,
         },
         "actions",
       ],
       items: [],
-      numberOfCustomers: 0,
-      activeCustomers: 0,
-      activeCustomersData: [],
       customerId: 0,
-      companySearchTerm: "",
-      tableHeader: "",
+
       showSuccessAlert: false,
       alertMessage: "",
     };
@@ -165,13 +134,7 @@ export default {
       axios
           .get("http://localhost:3000/customers/")
           .then((response) => {
-            this.tableHeader = "Total Clientes";
             this.items = response.data;
-            this.numberOfCustomers = response.data.length;
-            this.activeCustomersData = response.data.filter(
-                (item) => item.customer_status === "active"
-            );
-            this.activeCustomers = this.activeCustomersData.length;
           })
           .catch((error) => {
             console.log(error);
@@ -184,32 +147,23 @@ export default {
     closeEditModal() {
       this.$refs["edit-customer-modal"].hide();
     },
-    setFilterTotalIsActive() {
-      this.tableHeader = "Total Customers";
-      this.getCustomerData();
-    },
-    setFilterActiveIsActive() {
-      this.tableHeader = "Clientes Ativos";
-      this.items = this.activeCustomersData;
-    },
     showAlertCreate() {
       this.showSuccessAlert = true;
       this.alertMessage = "Customer was created successfully!";
     },
     showAlertUpdate() {
       this.showSuccessAlert = true;
-      this.alertMessage = "Customer was updated successfully";
+      this.alertMessage = "O Cadastro foi Atualizado";
     },
-    showDeleteModal(id) {
-      this.$refs["delete-customer-modal"].show();
-      this.customerId = id;
-    },
-    closeDeleteModal() {
-      this.$refs["delete-customer-modal"].hide();
-    },
-    showDeleteSuccessModal() {
-      this.showSuccessAlert = true;
-      this.alertMessage = "Customer was deleted successfully!";
+    deleteCadastro(id) {
+         axios
+        .delete(`http://localhost:3000/customers/${[id]}`)
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   computed: {
@@ -223,5 +177,9 @@ export default {
 <style>
 .action-item:hover {
   cursor: pointer;
+}
+.alert{
+  width: 100%;
+  text-align: center;
 }
 </style>
